@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zaky D. Aolya - Portfolio & Recap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #1e1231;
+            color: #fff;
+            font-family: 'VT323', monospace;
+            min-height: 100vh;
+            overflow-y: auto;
+            padding: 20px 0; /* Padding atas-bawah untuk bingkai */
+        }
+        .wrapper {
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Jarak antar section lebih besar untuk kejelasan */
+        }
+        .nav-bar {
+            background: #3e2c4f;
+            border: 4px dashed #ff69b4;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 25px; /* Jarak antar tautan lebih luas */
+            flex-wrap: wrap;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+        }
+        .nav-link {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: #ff69b4;
+            text-decoration: none;
+            text-shadow: 1px 1px 0 #ffd700;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #00CED1;
+        }
+        .content-section {
+            display: none;
+            background: #3e2c4f;
+            border: 4px dashed #ff69b4;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+            padding: 25px; /* Padding lebih besar untuk ruang lega */
+            text-align: center;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            color: #ffd700;
+            text-shadow: 2px 2px 0 #ff69b4;
+            margin-bottom: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Portfolio Styles */
+        .portfolio-content {
+            display: flex;
+            justify-content: center; /* Centered untuk keseimbangan */
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .left, .right {
+            flex: 1;
+            min-width: 280px;
+            max-width: 360px; /* Batas maksimum untuk keseragaman */
+            padding: 15px;
+            background: #1e1231;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .left {
+            border: 3px double #00CED1;
+        }
+        .right {
+            border: 3px ridge #ffd700;
+        }
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border: 3px dotted #ff69b4;
+            border-radius: 8px;
+            animation: flipCard 4s infinite;
+        }
+        @keyframes flipCard {
+            0% { transform: perspective(1000px) rotateY(0deg); }
+            50% { transform: perspective(1000px) rotateY(180deg); }
+            100% { transform: perspective(1000px) rotateY(0deg); }
+        }
+        .description {
+            font-size: 1.2rem;
+            color: #00CED1;
+     
+            line-height: 1.3;
+        }
+        .skills {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            transition: transform 0.5s ease;
+            padding: 10px;
+        }
+        .slide h2 {
+            font-family: 'Press Start 2P', cursive;
+            color: #00CED1;
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 0 #ff69b4;
+            margin-bottom: 15px;
+        }
+        .skill-item {
+            margin: 10px 0;
+            font-size: 1.1rem;
+            color: #e0e0ff;
+        }
+        .skill-bar {
+            background: #2b1a2f;
+            height: 10px;
+            border: 2px groove #ffd700;
+            border-radius: 4px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .skill-fill {
+            height: 100%;
+            background: #ff69b4;
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+        .arrows {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .arrow {
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #ffd700;
+            text-shadow: 1px 1px 0 #ff69b4;
+            transition: transform 0.2s ease;
+        }
+        .arrow:hover {
+            transform: scale(1.1);
+        }
+
+        /* Recap Styles */
+        .recap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .recap-header-left h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: #ffd700;
+            text-shadow: 2px 2px 0 #ff69b4;
+            text-transform: uppercase;
+        }
+        .recap-header-right img {
+            width: 150px;
+            height: auto;
+            border: 2px double #00CED1;
+            border-radius: 5px;
+        }
+        .recap-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.8rem;
+            color: #e0e0ff;
+            text-shadow: 2px 2px 0 #ff69b4;
+            margin-bottom: 10px;
+        }
+        .recap-subtitle {
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            color: #00CED1;
+            text-shadow: 1px 1px 0 #ff69b4;
+            margin-bottom: 30px;
+        }
+        .image-collage {
+            display: flex;
+            flex-direction: column;
+            gap: 25px; /* Jarak antar baris lebih besar */
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .image-row {
+            display: flex;
+            justify-content: center;
+            gap: 25px; /* Jarak antar gambar lebih luas */
+            flex-wrap: wrap;
+        }
+        .image-item {
+            width: 180px;
+            height: 180px;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 3px dotted #ffd700;
+        }
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .recap-footer {
+            margin-top: 30px;
+        }
+        .recap-footer a {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: #ff69b4;
+            text-decoration: none;
+            text-shadow: 1px 1px 0 #ffd700;
+            transition: color 0.3s ease;
+        }
+        .recap-footer a:hover {
+            color: #00CED1;
+        }
+
+        /* Game Styles */
+        #gamePlay {
+            display: block; /* Langsung terlihat di halaman ketiga */
+        }
+        #question {
+            font-family: 'VT323', monospace;
+            font-size: 2rem;
+            color: #ffd700;
+            text-shadow: 1px 1px 0 #ff69b4;
+            margin-bottom: 20px;
+        }
+        #answer, #playerName {
+            padding: 10px;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            border: 2px solid #00CED1;
+            border-radius: 5px;
+            width: 150px;
+            margin-bottom: 20px;
+            background: #1e1231;
+            color: #e0e0ff;
+        }
+        #submit, #restartButton {
+            padding: 10px 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            background: #ff69b4;
+            color: #ffd700;
+            border: 2px ridge #ffd700;
+            border-radius: 5px;
+            cursor: pointer;
+            text-shadow: 1px 1px 0 #2b1a2f;
+            margin: 5px;
+        }
+        #submit:hover, #restartButton:hover {
+            background: #00CED1;
+        }
+        #level, #score, #timer, #finalScore, #highScore {
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: #e0e0ff;
+            text-shadow: 1px 1px 0 #ff69b4;
+        }
+        #timer {
+            color: #ff69b4;
+        }
+        #shape {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            transition: all 0.5s ease;
+        }
+        .level-animate {
+            animation: levelChange 0.7s ease-in-out;
+        }
+        @keyframes levelChange {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .easy { background: #1e1231; border: 2px dashed #ffd700; }
+        .medium { background: #3e2c4f; border: 2px double #ff69b4; }
+        .hard { background: #2b1a2f; border: 2px dotted #00CED1; animation: glow 1.5s infinite alternate; }
+        .expert { background: #1e1231; border: 3px ridge #e0e0ff; animation: shine 2s infinite; }
+        @keyframes glow {
+            from { box-shadow: 0 0 10px #ff69b4; }
+            to { box-shadow: 0 0 20px #ff69b4; }
+        }
+        @keyframes shine {
+            0% { box-shadow: 0 0 10px #ffd700; }
+            50% { box-shadow: 0 0 30px #ffd700; }
+            100% { box-shadow: 0 0 10px #ffd700; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .wrapper {
+                padding: 0 10px;
+            }
+            .portfolio-content, .recap-header {
+                flex-direction: column;
+                align-items: center;
+            }
+            .left, .right {
+                min-width: 100%;
+                max-width: 100%;
+            }
+            .profile-img, .image-item {
+                width: 150px;
+                height: 150px;
+            }
+            .skills {
+                max-width: 100%;
+            }
+            .nav-bar {
+                gap: 15px;
+            }
+            .nav-link {
+                font-size: 1rem;
+            }
+            #question {
+                font-size: 1.5rem;
+            }
+            #answer {
+                width: 120px;
+            }
+            #submit, #restartButton {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            .recap-title {
+                font-size: 1.5rem;
+            }
+            .recap-subtitle {
+                font-size: 1.3rem;
+            }
+            .recap-header-left h1 {
+                font-size: 1rem;
+            }
+            .recap-header-right img {
+                width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .wrapper {
+                padding: 0 5px;
+            }
+            .section {
+                padding: 15px;
+            }
+            .title, .recap-title {
+                font-size: 1.2rem;
+            }
+            .slide h2, .recap-subtitle {
+                font-size: 1.1rem;
+            }
+            .skill-item, #level, #score, #timer, #finalScore, #highScore {
+                font-size: 1rem;
+            }
+            .profile-img, .image-item {
+                width: 120px;
+                height: 120px;
+            }
+            .arrow {
+                font-size: 1.5rem;
+            }
+            #question {
+                font-size: 1.2rem;
+            }
+            #shape {
+                width: 80px;
+                height: 80px;
+            }
+            .nav-link {
+                font-size: 0.9rem;
+            }
+            .recap-header-left h1 {
+                font-size: 0.9rem;
+            }
+            .recap-header-right img {
+                width: 100px;
+            }
+            .recap-footer a {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Navigation -->
+        <div class="nav-bar">
+            <span class="nav-link active" onclick="showSection('portfolio')">PORTOFOLIO</span>
+            <span class="nav-link" onclick="showSection('recap')">PROJECT</span>
+            <span class="nav-link" onclick="showSection('game')">GAME</span>
+        </div>
+
+        <!-- Portfolio Section -->
+        <div id="portfolio" class="content-section active">
+            <h1 class="title">Zaky D. Aolya</h1>
+            <div class="portfolio-content">
+                <div class="left">
+                    <img src="zaky.png" alt="Zaky" class="profile-img">
+                    <p class="description">"Saya adalah seorang Grafik designer yang Sampai Sekarang masih mendapatkan total 2M. (MakasihZak,MantapZak)"</p>
+                </div>
+                <div class="right">
+                    <div class="skills" id="skills">
+                        <div class="slide" id="design">
+                            <h2>Design</h2>
+                            <div class="skill-item">Alight Motion
+                                <div class="skill-bar"><div class="skill-fill" style="width: 60%;"></div></div>
+                            </div>
+                            <div class="skill-item">Coreldraw
+                                <div class="skill-bar"><div class="skill-fill" style="width: 30%;"></div></div>
+                            </div>
+                            <div class="skill-item">Photoshop
+                                <div class="skill-bar"><div class="skill-fill" style="width: 30%;"></div></div>
+                            </div>
+                            <div class="skill-item">Adobe Illustrator
+                                <div class="skill-bar"><div class="skill-fill" style="width: 1%;"></div></div>
+                            </div>
+                        </div>
+                        <div class="slide" id="shoot" style="transform: translateX(100%);">
+                            <h2>Shoot</h2>
+                            <div class="skill-item">Photographer
+                                <div class="skill-bar"><div class="skill-fill" style="width: 20%;"></div></div>
+                            </div>
+                            <div class="skill-item">Videographer
+                                <div class="skill-bar"><div class="skill-fill" style="width: 20%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arrows">
+                        <span class="arrow" id="leftArrow">←</span>
+                        <span class="arrow" id="rightArrow">→</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recap Section -->
+        <div id="recap" class="content-section">
+            <div class="recap-header">
+                <div class="recap-header-left">
+                    <h3>PROJECT</h3>
+                </div>
+                <div class="recap-header-right">
+         
+                </div>
+            </div>
+            <h2 class="recap-title">RECAP</h2>
+            <div class="image-collage">
+                <div class="image-row">
+                    <div class="image-item">
+                        <img src="image1.jpg" alt="Dokumentasi 1">
+                    </div>
+                    <div class="image-item">
+                        <img src="image2.jpg" alt="Dokumentasi 2">
+                    </div>
+                </div>
+                <div class="image-row">
+                    <div class="image-item">
+                        <img src="image3.jpg" alt="Dokumentasi 3">
+                    </div>
+                    <div class="image-item">
+                        <img src="image4.jpg" alt="Dokumentasi 4">
+                    </div>
+                </div>
+                <div class="image-row">
+                    <div class="image-item">
+                        <img src="image5.jpg" alt="Dokumentasi 5">
+                    </div>
+                    <div class="image-item">
+                        <img src="image6.jpg" alt="Dokumentasi 6">
+                    </div>
+                </div>
+            </div>
+            <div class="recap-footer">
+                <a href="https://www.sayapeduli.org" target="_blank">ByZakyAolya</a>
+            </div>
+        </div>
+
+        <!-- Game Section -->
+        <div id="game" class="content-section">
+            <h2 class="title">Math Master</h2>
+            <div id="gamePlay">
+                <div id="shape"></div>
+                <div id="level">Level: 1</div>
+                <div id="timer">Waktu: 50</div>
+                <div id="question"></div>
+                <input type="text" id="playerName" placeholder="Nama Kamu" style="margin-bottom: 10px;">
+                <input type="number" id="answer" placeholder="Jawabanmu">
+                <button id="submit" onclick="checkAnswer()">Jawab</button>
+                <button id="restartButton" style="display: none;">Main Lagi</button>
+                <div id="score">Skor: 0</div>
+                <div id="finalScore"></div>
+                <div id="highScore"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Elemen Audio -->
+    <audio id="introSound" src="https://www.soundjay.com/buttons/beep-01a.mp3"></audio>
+    <audio id="correctSound" src="https://www.soundjay.com/buttons/beep-07.mp3"></audio>
+    <audio id="wrongSound" src="https://www.soundjay.com/buttons/beep-02.mp3"></audio>
+    <audio id="gameOverSound" src="https://www.soundjay.com/music/game-over-2.mp3"></audio>
+
+    <script>
+        // Navigation
+        const sections = {
+            portfolio: document.getElementById('portfolio'),
+            recap: document.getElementById('recap'),
+            game: document.getElementById('game')
+        };
+        const navLinks = document.querySelectorAll('.nav-link');
+        let currentSection = 'portfolio';
+
+        function showSection(sectionId) {
+            if (currentSection !== sectionId) {
+                Object.values(sections).forEach(section => section.classList.remove('active'));
+                sections[sectionId].classList.add('active');
+                navLinks.forEach(link => link.classList.remove('active'));
+                document.querySelector(`.nav-link[onclick="showSection('${sectionId}')"]`).classList.add('active');
+                currentSection = sectionId;
+
+                if (sectionId === 'game') {
+                    resetGame();
+                    generateQuestion();
+                } else {
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }
+        }
+
+        // Portfolio Slider
+        const design = document.getElementById('design');
+        const shoot = document.getElementById('shoot');
+        const leftArrow = document.getElementById('leftArrow');
+        const rightArrow = document.getElementById('rightArrow');
+        let currentSlide = 0;
+
+        rightArrow.addEventListener('click', () => {
+            if (currentSlide === 0) {
+                design.style.transform = 'translateX(-100%)';
+                shoot.style.transform = 'translateX(0)';
+                currentSlide = 1;
+            }
+        });
+
+        leftArrow.addEventListener('click', () => {
+            if (currentSlide === 1) {
+                design.style.transform = 'translateX(0)';
+                shoot.style.transform = 'translateX(100%)';
+                currentSlide = 0;
+            }
+        });
+
+        // Game Logic
+        const gamePlay = document.getElementById('gamePlay');
+        const playerName = document.getElementById('playerName');
+        const question = document.getElementById('question');
+        const answerInput = document.getElementById('answer');
+        const levelDisplay = document.getElementById('level');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+        const shape = document.getElementById('shape');
+        const finalScore = document.getElementById('finalScore');
+        const highScore = document.getElementById('highScore');
+        const submitButton = document.getElementById('submit');
+        const restartButton = document.getElementById('restartButton');
+
+        const introSound = document.getElementById('introSound');
+        const correctSound = document.getElementById('correctSound');
+        const wrongSound = document.getElementById('wrongSound');
+        const gameOverSound = document.getElementById('gameOverSound');
+
+        let level = 1;
+        let score = 0;
+        let highScoreValue = localStorage.getItem('highScore') || 0;
+        let correctAnswer;
+        let timeLeft = 50;
+        let timer;
+        let player;
+
+        const levels = [
+            { min: 1, max: 10, ops: ['+'] }, { min: 1, max: 20, ops: ['+'] },
+            { min: 1, max: 30, ops: ['+', '-'] }, { min: 1, max: 40, ops: ['+', '-'] },
+            { min: 1, max: 50, ops: ['+', '-'] }, { min: 1, max: 20, ops: ['*'] },
+            { min: 1, max: 50, ops: ['+', '-', '*'] }, { min: 1, max: 75, ops: ['+', '-', '*'] },
+            { min: 1, max: 100, ops: ['*', '/'] }, { min: 1, max: 150, ops: ['+', '-', '*', '/'] },
+            { min: 1, max: 200, ops: ['+', '-', '*', '/'] }, { min: 1, max: 300, ops: ['+', '-', '*', '/'] },
+            { min: 1, max: 400, ops: ['+', '-', '*', '/'] }, { min: 1, max: 500, ops: ['+', '-', '*', '/'] },
+            { min: 1, max: 600, ops: ['+', '-', '*', '/'] }, { min: 1, max: 700, ops: ['+', '-', '*', '/'] },
+            { min: 1, max: 800, ops: ['+', '-', '*', '/'] }, { min: 1, max: 900, ops: ['+', '-', '*', '/'] },
+            { min: 1, max: 1000, ops: ['+', '-', '*', '/'] }, { min: 1, max: 2000, ops: ['+', '-', '*', '/'] }
+        ];
+
+        function resetGame() {
+            level = 1;
+            score = 0;
+            timeLeft = 50;
+            player = playerName.value.trim() || "Guest";
+            levelDisplay.textContent = `Level: ${level}`;
+            scoreDisplay.textContent = `Skor: ${score}`;
+            timerDisplay.textContent = `Waktu: ${timeLeft}`;
+            finalScore.textContent = '';
+            highScore.textContent = `Skor Tertinggi: ${highScoreValue}`;
+            submitButton.style.display = 'inline-block';
+            restartButton.style.display = 'none';
+            answerInput.value = '';
+            clearInterval(timer);
+            timer = null;
+        }
+
+        function updateShape() {
+            const shapeClass = level <= 5 ? 'easy' : level <= 10 ? 'medium' : level <= 15 ? 'hard' : 'expert';
+            shape.className = shapeClass;
+        }
+
+        function animateLevel() {
+            levelDisplay.classList.add('level-animate');
+            setTimeout(() => levelDisplay.classList.remove('level-animate'), 700);
+        }
+
+        function generateQuestion() {
+            const currentLevel = levels[level - 1];
+            const num1 = Math.floor(Math.random() * (currentLevel.max - currentLevel.min + 1)) + currentLevel.min;
+            const num2 = Math.floor(Math.random() * (currentLevel.max - currentLevel.min + 1)) + currentLevel.min;
+            const op = currentLevel.ops[Math.floor(Math.random() * currentLevel.ops.length)];
+
+            if (op === '+') {
+                correctAnswer = num1 + num2;
+                question.textContent = `${num1} + ${num2} = ?`;
+            } else if (op === '-') {
+                correctAnswer = num1 - num2;
+                question.textContent = `${num1} - ${num2} = ?`;
+            } else if (op === '*') {
+                correctAnswer = num1 * num2;
+                question.textContent = `${num1} × ${num2} = ?`;
+            } else if (op === '/') {
+                correctAnswer = Math.round(num1 / num2);
+                const dividend = num1 * correctAnswer;
+                question.textContent = `${dividend} ÷ ${num2} = ?`;
+            }
+
+            if (!timer) {
+                timer = setInterval(() => {
+                    timeLeft--;
+                    timerDisplay.textContent = `Waktu: ${Math.max(0, Math.round(timeLeft))}`;
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        timer = null;
+                        gameOverSound.play();
+                        endGame('Waktu Habis!');
+                    }
+                }, 1000);
+            }
+            updateShape();
+        }
+
+        function checkAnswer() {
+            if (!player) {
+                player = playerName.value.trim();
+                if (!player) {
+                    alert('Masukkan nama dulu!');
+                    return;
+                }
+            }
+            const userAnswer = parseInt(answerInput.value);
+            if (userAnswer === correctAnswer) {
+                score += level * 10;
+                timeLeft += 0.5;
+                scoreDisplay.textContent = `Skor: ${score}`;
+                correctSound.play();
+                if (level < 20) {
+                    level++;
+                    levelDisplay.textContent = `Level: ${level}`;
+                    animateLevel();
+                    generateQuestion();
+                } else {
+                    gameOverSound.play();
+                    endGame('Selamat! Kamu menyelesaikan semua level!');
+                }
+            } else {
+                timeLeft -= 2;
+                wrongSound.play();
+                timerDisplay.textContent = `Waktu: ${Math.max(0, Math.round(timeLeft))}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    timer = null;
+                    gameOverSound.play();
+                    endGame('Waktu Habis!');
+                } else {
+                    generateQuestion();
+                }
+            }
+            answerInput.value = '';
+        }
+
+        function endGame(message) {
+            submitButton.style.display = 'none';
+            restartButton.style.display = 'inline-block';
+            finalScore.textContent = `${player}, Skor Akhir: ${score} (Level ${level})`;
+            if (score > highScoreValue) {
+                highScoreValue = score;
+                localStorage.setItem('highScore', highScoreValue);
+            }
+            highScore.textContent = `Skor Tertinggi: ${highScoreValue}`;
+        }
+
+        restartButton.onclick = () => {
+            resetGame();
+            introSound.play();
+            generateQuestion();
+        };
+
+        answerInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkAnswer();
+        });
+    </script>
+</body>
+</html>
